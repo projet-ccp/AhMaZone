@@ -1,18 +1,49 @@
-{% extends "base.html.twig" %}
+{% extends 'base.html.twig' %}
  
-{% block stylesheets %}
-    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
-{% endblock %}
- 
- 
+{% block title %}Page de d'inscription{% endblock %}
+
 {% block body %}
- 
+
+<h1>Formulaire</h1> 
+
 <div id="contents">
- 
-<h1>Formulaire</h1>
- 
-{{ form( myForm ) }}
- 
+<form action="" method="post">
+<div>
+<label for="nom">Nom :</label>
+<input type="text" id="nom" name="nom">
+</div>
+
+<div>
+<label for="nom">Prenom :</label>
+<input type="text" id="prenom" name="prenom">
+</div>
+
+<div>
+<label for="nom">Mail :</label>
+<input type="text" id="mail" name="mail">
+</div>
+
+<div>
+<label for="nom">Mdp :</label>
+<input type="text" id="mdp" name="mdp">
+</div>
+
+<div>
+<label for="nom">Adresse :</label>
+<input type="text" id="adr" name="adr">
+</div>
+
+<div>
+<label for="nom">Code postal :</label>
+<input type="text" id="postal" name="postal">
+</div>
+
+<div>
+<label for="nom">Ville :</label>
+<input type="text" id="ville" name="ville">
+</div>
+</form>
+
 </div>
 {% endblock %}
  
