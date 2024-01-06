@@ -1,0 +1,19 @@
+{% extends "base.html.twig" %}
+ 
+{% block stylesheets %}
+    <link href="{{ asset('css/main.css') }}" rel="stylesheet">
+{% endblock %}
+ 
+ 
+{% block body %}
+ 
+<div id="contents">
+ 
+<h1>Formulaire</h1>
+ 
+{{ form( myForm ) }}
+ 
+</div>
+{% endblock %}
+ 
+ 
