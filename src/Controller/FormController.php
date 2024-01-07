@@ -14,29 +14,51 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\CountryType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
- 
-class FormController extends AbstractController
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\PasswordType;
+
+class FormController extends AbstractController     
 {
     // ...
  
-    #[Route('/form')]
+    #[Route('/inscription')]
    public function index3(Request $request): Response
     {
-        $person = new Person( "Jean", true);
  
-        $myForm = $this->createFormBuilder($person)
-            ->add('first_name', TextType::class, [
-                'data' => 'Jean', // valeur par défaut
+        $myForm = $this->createFormBuilder()
+            ->add('prenom', TextType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'nom :'
+            ])
+            ->add('nom', TextType::class, [
+                'data' => '', // valeur par défaut
                 'label' => 'Prénom :'
             ])
-            ->add('genre', CheckboxType::class, [
-                'label' => 'Masculin',
-                'required' => false
+            ->add('email', EmailType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'email :'
             ])
-            ->add('Commentaire', TextType::class, [
-                'mapped' => false
+            ->add('password', PasswordType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'mot de passe :'
             ])
-            ->add('submit', SubmitType::class, ['label' => 'Soumettre'])
+            ->add('verif_password', PasswordType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'mot de passe confirmation:'
+            ])
+            ->add('adresse', PasswordType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'adresse:'
+            ])
+            ->add('codePost', PasswordType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'code postal:'
+            ])
+            ->add('ville', PasswordType::class, [
+                'data' => '', // valeur par défaut
+                'label' => 'ville:'
+            ])
+            ->add('submit', SubmitType::class, ['label' => 'Enregistrer'])
             ->getForm();
  
         $myForm->handleRequest($request);

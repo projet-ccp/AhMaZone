@@ -2,6 +2,7 @@
 <html>
     <head>
         <meta charset="UTF-8">
+
         <title>{% block title %}Welcome!{% endblock %}</title>
         <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text></svg>">
         <link rel="stylesheet" href="./styles/main.css">
@@ -12,10 +13,9 @@
         {% endblock %}
     </head>
     <body>
+        {% include 'common/header.html.twig' %} {# Inclusion de la navbar #}
         {% block body %}
-<nav class="navbar"> <div class="navbar-brand"> <a href="#">My Site</a> </div> <button class="navbar-toggle" aria-label="Toggle navigation"> <span class="navbar-toggle-icon"></span> </button> <div class="navbar-menu"> <ul class="navbar-menu-list"> <li><a href="#">Home</a></li> <li><a href="#">About</a></li> <li><a href="#">Contact</a></li> </ul> </div> </nav>
 
-        
         {% endblock %}
     </body>
 </html>
