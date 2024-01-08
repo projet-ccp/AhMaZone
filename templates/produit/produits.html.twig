@@ -1,0 +1,76 @@
+{% block body %}
+
+    <style>
+
+        .image
+        {
+            background-color:rgb(240,240,240);
+            border-radius: 7px;
+            width:fit-content;
+            
+            margin:auto;
+            padding: 0px;
+            
+
+            text-align:center;
+
+        }
+        table{
+            margin:auto;
+        }
+        img
+        {
+            display: block;
+            margin: auto; /* Centre l'image horizontalement et verticalement */
+            max-width: 100%; /* Optionnel : pour s'assurer que l'image reste dans les limites du conteneur */
+            height: auto;
+        }
+        td{
+        }
+        .image
+        {
+            padding:20px;
+        }
+        .text{
+            width:fit-content;
+            margin:auto;
+            padding:8px;
+            padding-left: 30px;
+            padding-right: 30px;
+        }
+    </style>
+
+    <table>
+        {% for product in products %}
+            {% if loop.index0 % 5 == 0 %}
+                <tr>
+            {% endif %}
+            
+            <td>
+            <div class="text">
+                <div class="image">
+                    <img src={{product.getPrImage()}} />
+                </div>
+
+                
+                <br>
+
+                {{ product.getPrLabel() }}
+                <br>
+                <br>
+
+                Quantité en stock : {{ product.getPrQuantiteStock() }}
+                <br>
+                <br>
+                Prix : {{ product.getPrPrixUnit() }}
+                <br>
+                
+            </div>
+            </td>
+            
+            {% if loop.index % 5 == 0 or loop.last %}
+                </tr>
+            {% endif %}
+        {% endfor %}
+    </table>
+{% endblock %}
