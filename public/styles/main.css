@@ -37,6 +37,7 @@
       align-items: center;
       justify-content: space-around;
       flex-direction: column;
+      position: absolute;
     }
 
     .copyright {
@@ -49,8 +50,37 @@
       width: 100%;
     }
 
+    .accueil {
+      background-color: white;
+      margin: 50px auto;
+      width: 50%;
+      height: 110%;
+      border: 4px solid black;
+      border-radius: 10px;
+      padding: 20px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      font-family: 'Arial', sans-serif;
+      color: #333;
+      transition: transform 0.3s ease; /* Ajouter une transition lors du survol */
+  }
+  
+    .accueil h1 {
+      margin-bottom: 20px; 
+      text-align: center;
+  }
+  
+    .accueil img {
+      display: block;
+      margin: 0 auto; 
+  }
+    .accueil:hover {
+      transform: scale(1.05); /* Redimensionner légèrement lors du survol */
+  }
+  
+
     #contents{
       max-width: 400px;
+
     }
 
     #contents label, input, select, textarea {
