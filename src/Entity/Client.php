@@ -4,58 +4,71 @@ namespace App\Entity;
 
 use App\Repository\ClientRepository;
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Security\Core\User\PasswordAuthenticatedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 #[ORM\Entity(repositoryClass: ClientRepository::class)]
-class Client
+#[UniqueEntity(fields: ['email'], message: 'There is already an account with this email')]
+class Client implements UserInterface, PasswordAuthenticatedUserInterface
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
     #[ORM\Column]
     private ?int $id = null;
 
+    #[ORM\Column(length: 180, unique: true)]
+    private ?string $email = null;
+
     #[ORM\Column]
-    private ?int $cl_id = null;
+    private ?string $nom = null;
 
-    #[ORM\Column(length: 50)]
-    private ?string $cl_nom = null;
-
-    #[ORM\Column(length: 50)]
+    #[ORM\Column]
     private ?string $prenom = null;
 
-    #[ORM\Column(length: 255)]
-    private ?string $cl_adresse = null;
+    #[ORM\Column]
+    private ?string $adresse = null;
 
     #[ORM\Column]
-    private ?int $cl_code_postal = null;
+    private ?string $postal = null;
 
-    #[ORM\Column(length: 100)]
-    private ?string $cl_ville = null;
+    #[ORM\Column]
+    private ?string $ville = null;
+
+    #[ORM\Column]
+    private array $roles = [];
+
+    /**
+     * @var string The hashed password
+     */
+    #[ORM\Column]
+    private ?string $password = null;
 
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getClId(): ?int
+    public function getEmail(): ?string
     {
-        return $this->cl_id;
+        return $this->email;
     }
 
-    public function setClId(int $cl_id): static
+    public function setEmail(string $email): static
     {
-        $this->cl_id = $cl_id;
+        $this->email = $email;
 
         return $this;
     }
 
-    public function getClNom(): ?string
+    public function getNom(): ?string
     {
-        return $this->cl_nom;
+        return $this->nom;
     }
 
-    public function setClNom(string $cl_nom): static
+    public function setNom(string $nom): static
     {
-        $this->cl_nom = $cl_nom;
+        $this->nom = $nom;
 
         return $this;
     }
@@ -72,39 +85,92 @@ class Client
         return $this;
     }
 
-    public function getClAdresse(): ?string
+    public function getAdresse(): ?string
     {
-        return $this->cl_adresse;
+        return $this->adresse;
     }
 
-    public function setClAdresse(string $cl_adresse): static
+    public function setAdresse(string $adresse): static
     {
-        $this->cl_adresse = $cl_adresse;
+        $this->adresse = $adresse;
 
         return $this;
     }
 
-    public function getClCodePostal(): ?int
+    public function getPostal(): ?string
     {
-        return $this->cl_code_postal;
+        return $this->postal;
     }
 
-    public function setClCodePostal(int $cl_code_postal): static
+    public function setPostal(string $postal): static
     {
-        $this->cl_code_postal = $cl_code_postal;
+        $this->postal = $postal;
 
         return $this;
     }
 
-    public function getClVille(): ?string
+    public function getVille(): ?string
     {
-        return $this->cl_ville;
+        return $this->ville;
     }
 
-    public function setClVille(string $cl_ville): static
+    public function setVille(string $ville): static
     {
-        $this->cl_ville = $cl_ville;
+        $this->ville = $ville;
 
         return $this;
+    }
+
+    /**
+     * A visual identifier that represents this user.
+     *
+     * @see UserInterface
+     */
+    public function getUserIdentifier(): string
+    {
+        return (string) $this->email;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function getRoles(): array
+    {
+        $roles = $this->roles;
+        // guarantee every user at least has ROLE_USER
+        $roles[] = 'ROLE_USER';
+
+        return array_unique($roles);
+    }
+
+    public function setRoles(array $roles): static
+    {
+        $this->roles = $roles;
+
+        return $this;
+    }
+
+    /**
+     * @see PasswordAuthenticatedUserInterface
+     */
+    public function getPassword(): string
+    {
+        return $this->password;
+    }
+
+    public function setPassword(string $password): static
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+
+    /**
+     * @see UserInterface
+     */
+    public function eraseCredentials(): void
+    {
+        // If you store any temporary, sensitive data on the user, clear it here
+        // $this->plainPassword = null;
     }
 }
