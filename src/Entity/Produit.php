@@ -13,9 +13,6 @@ class Produit
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $pr_id = null;
-
     #[ORM\Column(length: 50)]
     private ?string $pr_label = null;
 
@@ -25,19 +22,17 @@ class Produit
     #[ORM\Column]
     private ?int $pr_quantite_stock = null;
 
+    #[ORM\Column(length: 500)]
+    private ?string $pr_image = null;
+
     public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getPrId(): ?int
+    public function setId(int $id): static
     {
-        return $this->pr_id;
-    }
-
-    public function setPrId(int $pr_id): static
-    {
-        $this->pr_id = $pr_id;
+        $this->id = $id;
 
         return $this;
     }
@@ -77,4 +72,17 @@ class Produit
 
         return $this;
     }
+
+    public function getPrImage(): ?string
+    {
+        return $this->pr_image;
+    }
+
+    public function setPrImage(string $pr_image): static
+    {
+        $this->pr_image = $pr_image;
+
+        return $this;
+    }
+
 }
