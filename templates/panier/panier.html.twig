@@ -1,0 +1,34 @@
+{# templates/panier/panier.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Votre panier</h1>
+
+    {% if cart is empty %}
+        <p>Votre panier est vide.</p>
+    {% else %}
+        <table>
+            <thead>
+                <tr>
+                    <th>Produit</th>
+                    <th>Quantité</th>
+                    <th>Prix unitaire</th>
+                    <th>Total</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% set totalPanier = 0 %}
+                {% for productId, item in cart %}
+                    <tr>
+                        <td>{{ item['label'] ?? 'Label non défini' }}</td>
+                        <td>{{ item['quantite'] ?? 'Quantité non définie' }}</td>
+                        <td>{{ item['prix_unit'] ?? 'Prix non défini' }}</td>
+                    </tr>
+                    {% set totalPanier = totalPanier + (item['quantite'] * item['prix_unit']) %}
+                {% endfor %}
+            </tbody>
+        </table>
+        <p>Total du panier : {{ totalPanier }}</p>
+    {% endif %}
+{% endblock %}
