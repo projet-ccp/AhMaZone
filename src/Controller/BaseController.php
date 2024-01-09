@@ -26,11 +26,6 @@ class BaseController extends AbstractController
         return $this->render('formconnexion/formconnexion.html.twig');
     }
 
-    #[Route('/produit', name: 'app_produits')]
-    public function produits(): Response
-    {
-        return $this->render('produit/produits.html.twig');
-    }
 
     
     
