@@ -13,9 +13,6 @@ class CommProd
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $cp_id = null;
-
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Commande $cp_co_id = null;
@@ -32,14 +29,9 @@ class CommProd
         return $this->id;
     }
 
-    public function getCpId(): ?int
+    public function setId(int $id): static
     {
-        return $this->cp_id;
-    }
-
-    public function setCpId(int $cp_id): static
-    {
-        $this->cp_id = $cp_id;
+        $this->id = $id;
 
         return $this;
     }

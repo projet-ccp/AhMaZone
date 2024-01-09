@@ -1,0 +1,28 @@
+{# templates/order/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block title %}Commandes de {{ client.nom }} {{ client.prenom }}{% endblock %}
+
+{% block body %}
+    <h1>Commandes de {{ client.nom }} {{ client.prenom }}</h1>
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Date</th>
+                <th>Prix total TTC</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for order in orders %}
+                <tr>
+                    <td>{{ order.date|date('Y-m-d') }}</td>
+                    <td>{{ order.prixTotalTTC }}</td>
+                    <td>
+                    </td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

@@ -14,9 +14,6 @@ class Commande
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\Column]
-    private ?int $co_id = null;
-
     #[ORM\Column(type: Types::DATE_MUTABLE)]
     private ?\DateTimeInterface $co_date = null;
 
@@ -32,14 +29,9 @@ class Commande
         return $this->id;
     }
 
-    public function getCoId(): ?int
+    public function setId(int $id): static
     {
-        return $this->co_id;
-    }
-
-    public function setCoId(int $co_id): static
-    {
-        $this->co_id = $co_id;
+        $this->id = $id;
 
         return $this;
     }
