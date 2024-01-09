@@ -3,32 +3,69 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
-    <h1>Votre panier</h1>
+<style>
+        body {
+            text-align: center;
+        }
+        table {
+            margin: 0 auto;
+            border-collapse: collapse;
+            width: 80%;
+        }
+        th, td {
+            border: 1px solid #000;
+            padding: 8px;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        p {
+            font-weight: bold;
+        }
 
-    {% if cart is empty %}
-        <p>Votre panier est vide.</p>
-    {% else %}
-        <table>
-            <thead>
+        .buttonCommander
+        {
+            border: 1px solid rgb(50,50,255);
+            border-radius:10px;
+            background-color: rgb(50,50,255);
+            color:white;
+            font-size:1.2em;
+            padding:10px;
+        }
+    </style>
+
+
+
+<h1>Votre panier</h1>
+
+{% if cart is empty %}
+    <p>Votre panier est vide.</p>
+{% else %}
+    <table>
+        <thead>
+            <tr>
+                <th>Produit</th>
+                <th>Quantité</th>
+                <th>Prix unitaire</th>
+                <th>Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% set totalPanier = 0 %}
+            {% for productId, item in cart %}
                 <tr>
-                    <th>Produit</th>
-                    <th>Quantité</th>
-                    <th>Prix unitaire</th>
-                    <th>Total</th>
+                    <td>{{ item['label'] ?? 'Label non défini' }}</td>
+                    <td>{{ item['quantite'] ?? 'Quantité non définie' }}</td>
+                    <td>{{ item['prix_unit'] ?? 'Prix non défini' }}</td>
+                    <td>{{ item['quantite'] * item['prix_unit'] }}</td>
                 </tr>
-            </thead>
-            <tbody>
-                {% set totalPanier = 0 %}
-                {% for productId, item in cart %}
-                    <tr>
-                        <td>{{ item['label'] ?? 'Label non défini' }}</td>
-                        <td>{{ item['quantite'] ?? 'Quantité non définie' }}</td>
-                        <td>{{ item['prix_unit'] ?? 'Prix non défini' }}</td>
-                    </tr>
-                    {% set totalPanier = totalPanier + (item['quantite'] * item['prix_unit']) %}
-                {% endfor %}
-            </tbody>
-        </table>
-        <p>Total du panier : {{ totalPanier }}</p>
-    {% endif %}
+                {% set totalPanier = totalPanier + (item['quantite'] * item['prix_unit']) %}
+            {% endfor %}
+        </tbody>
+    </table>
+    <p>Total du panier : {{ totalPanier }}</p>
+
+    <br>
+    <button class="buttonCommander">Commander</button>
+{% endif %}
 {% endblock %}
