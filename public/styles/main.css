@@ -242,3 +242,17 @@
 .lienInscri{
   text-align: center;
 }
+
+.inputRegister{
+  margin: auto;
+  width: 50%;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+.login label{
+  font-weight: bold;
+  text-align: center;
+  margin: auto;
+  display: flow-root;
+}

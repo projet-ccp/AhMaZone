@@ -3,55 +3,66 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
+<div class = "login">
+    <h1>Inscription</h1>
+{{ form_errors(registrationForm) }}
+{{ form_start(registrationForm) }}
+{{ form_row(registrationForm.email, {
+    'attr': {
+        'placeholder': 'Email',
+        'class': 'inputRegister'
+    }
+}) }}
 
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Register</title>
+{{ form_row(registrationForm.plainPassword, {
+    'label': 'Password',
+    'attr': {
+        'placeholder': 'Mot de passe',
+        'class': 'inputRegister'
+    }
+}) }}
 
-    <div class="login">
-        <h1>Inscription</h1>
-        <div class="inputRegister">
-            <form action="your_registration_endpoint" method="post">
-                <!-- Remplacez "your_registration_endpoint" par l'URL de votre gestionnaire d'inscription -->
-                <!-- Email -->
-                <label for="email">Email</label>
-                <input type="email" name="email" id="email" placeholder="Email" required>
+{{ form_row(registrationForm.nom, {
+    'attr': {
+        'placeholder': 'Nom',
+        'class': 'inputRegister'
+    }
+}) }}
 
-                <!-- Mot de passe -->
-                <label for="password">Password</label>
-                <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+{{ form_row(registrationForm.prenom, {
+    'attr': {
+        'placeholder': 'Prénom',
+        'class': 'inputRegister'
+    }
+}) }}
 
-                <!-- Nom -->
-                <label for="nom">Nom</label>
-                <input type="text" name="nom" id="nom" placeholder="Nom" required>
+{{ form_row(registrationForm.adresse, {
+    'attr': {
+        'placeholder': 'Adresse',
+        'class': 'inputRegister'
+    }
+}) }}
 
-                <!-- Prenom -->
-                <label for="prenom">Prenom</label>
-                <input type="text" name="prenom" id="prenom" placeholder="Prenom" required>
+{{ form_row(registrationForm.postal, {
+    'attr': {
+        'placeholder': 'Code postal',
+        'class': 'inputRegister'
+    }
+}) }}
 
-                <!-- Adresse -->
-                <label for="adresse">Adresse</label>
-                <input type="text" name="adresse" id="adresse" placeholder="Adresse" required>
+{{ form_row(registrationForm.ville, {
+    'attr': {
+        'placeholder': 'Ville',
+        'class': 'inputRegister'
+    }
+}) }}
 
-                <!-- Code postal -->
-                <label for="postal">Code postal</label>
-                <input type="text" name="postal" id="postal" placeholder="Code postal" required>
+{{ form_row(registrationForm.agreeTerms, {
+    'label': 'J\'accepte les conditions d\'utilisation',
+    'class': 'inputRegister'
+}) }}
+  <button type="submit" class="buttonConnexion">Inscription</button>
+    {{ form_end(registrationForm) }}
 
-                <!-- Ville -->
-                <label for="ville">Ville</label>
-                <input type="text" name="ville" id="ville" placeholder="Ville" required>
-
-                <!-- J'accepte les conditions d'utilisation -->
-                <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
-                <label for="agreeTerms">J'accepte les conditions d'utilisation</label>
-
-                <!-- Bouton d'inscription -->
-                <button type="submit" class="buttonConnexion">Inscription</button>
-            </form>
-        </div>
-    </div>
-
-
+</div>
 {% endblock %}
