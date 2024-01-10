@@ -3,22 +3,55 @@
 {% block title %}Register{% endblock %}
 
 {% block body %}
-    <h1>Register</h1>
 
-    {{ form_errors(registrationForm) }}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Register</title>
 
-    {{ form_start(registrationForm) }}
-        {{ form_row(registrationForm.email) }}
-        {{ form_row(registrationForm.plainPassword, {
-            label: 'Password'
-        }) }}
-        {{ form_row(registrationForm.nom) }}
-        {{ form_row(registrationForm.prenom) }}
-        {{ form_row(registrationForm.adresse) }}
-        {{ form_row(registrationForm.postal) }}
-        {{ form_row(registrationForm.ville) }}
-        {{ form_row(registrationForm.agreeTerms) }}
+    <div class="login">
+        <h1>Inscription</h1>
+        <div class="inputRegister">
+            <form action="your_registration_endpoint" method="post">
+                <!-- Remplacez "your_registration_endpoint" par l'URL de votre gestionnaire d'inscription -->
+                <!-- Email -->
+                <label for="email">Email</label>
+                <input type="email" name="email" id="email" placeholder="Email" required>
 
-        <button type="submit" class="btn">Register</button>
-    {{ form_end(registrationForm) }}
+                <!-- Mot de passe -->
+                <label for="password">Password</label>
+                <input type="password" name="password" id="password" placeholder="Mot de passe" required>
+
+                <!-- Nom -->
+                <label for="nom">Nom</label>
+                <input type="text" name="nom" id="nom" placeholder="Nom" required>
+
+                <!-- Prenom -->
+                <label for="prenom">Prenom</label>
+                <input type="text" name="prenom" id="prenom" placeholder="Prenom" required>
+
+                <!-- Adresse -->
+                <label for="adresse">Adresse</label>
+                <input type="text" name="adresse" id="adresse" placeholder="Adresse" required>
+
+                <!-- Code postal -->
+                <label for="postal">Code postal</label>
+                <input type="text" name="postal" id="postal" placeholder="Code postal" required>
+
+                <!-- Ville -->
+                <label for="ville">Ville</label>
+                <input type="text" name="ville" id="ville" placeholder="Ville" required>
+
+                <!-- J'accepte les conditions d'utilisation -->
+                <input type="checkbox" name="agreeTerms" id="agreeTerms" required>
+                <label for="agreeTerms">J'accepte les conditions d'utilisation</label>
+
+                <!-- Bouton d'inscription -->
+                <button type="submit" class="buttonConnexion">Inscription</button>
+            </form>
+        </div>
+    </div>
+
+
 {% endblock %}

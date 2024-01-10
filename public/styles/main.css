@@ -86,3 +86,154 @@
   margin-bottom: 10px;
   display: block;
 }
+
+.descProd{
+  margin: auto;
+  text-align: center;
+  margin-top: 50px;
+}
+
+.btnPanier {
+  border: 1px solid rgb(50, 50, 255);
+  border-radius: 10px;
+  background-color: rgb(50, 50, 255);
+  color: white;
+  font-size: 1.2em;
+  padding: 10px;
+}
+
+.containerImg
+{
+  background-color:rgb(240,240,240);
+  border-radius: 7px;
+  width:fit-content;
+  
+  margin:auto;
+  padding: 0px;
+  
+
+  text-align:center;
+
+}
+
+.tableProduit
+{
+  margin:auto;
+}
+
+.imgProd
+{
+  display: block;
+  margin: auto; /* Centre l'image horizontalement et verticalement */
+  max-width: 100%; /* Optionnel : pour s'assurer que l'image reste dans les limites du conteneur */
+  height: auto;
+}
+
+.containerImg
+{
+    padding:20px;
+}
+
+.containerProd{
+    width:fit-content;
+    margin:auto;
+    padding:8px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.containerProd:hover
+{
+    background-color:rgb(235,235,235);
+}
+.lienProd
+{
+    text-decoration: none;
+    color:black;
+}
+
+.login{
+  background-color: white;
+  margin: 50px auto;
+  width: 70%;
+  height: 110%;
+  border: 4px solid black;
+  border-radius: 10px;
+  padding: 20px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'Arial', sans-serif;
+  color: #333;
+  transition: transform 0.3s ease;
+ 
+
+}
+.login h1 {
+  margin-bottom: 20px; 
+  text-align: center;
+}
+.inputLogin{
+  width: 50%;
+  margin: auto;
+}
+
+.buttonConnexion{
+  display: flex;
+  background-color: rgb(6, 210, 21);
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  color: white;
+  margin: auto;
+  text-align: center;
+  justify-content: center;
+}
+
+.inputRegister input{
+  text-align: center;
+  margin: auto;
+  border: 2px solid black;
+  border-radius: 5px;
+}
+
+.login {
+  max-width: 400px;
+  margin-top: 50px;
+  padding: 20px;
+  background: #f4f4f4;
+  border-radius: 8px;
+}
+
+.login h1 {
+  text-align: center;
+  color: #333;
+}
+
+.login .inputRegister input[type="text"],
+.login .inputRegister input[type="email"],
+.login .inputRegister input[type="password"],
+.login .inputRegister input[type="number"],
+.login .inputRegister textarea {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  box-sizing: border-box;
+}
+
+.login .inputRegister button {
+  background-color: rgb(6, 210, 21);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  padding: 10px;
+  cursor: pointer;
+}
+
+.login .inputRegister input::placeholder,
+.login .inputRegister textarea::placeholder {
+  color: #999;
+}
+
+.login .inputRegister input[type="checkbox"] {
+  margin-right: 5px;
+}
