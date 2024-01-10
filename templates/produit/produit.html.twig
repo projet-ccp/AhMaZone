@@ -1,23 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-<style>
-    .descProd {
-        margin: auto;
-        text-align: center;
-        margin-top: 50px;
-    }
-
-    .btnPanier {
-        border: 1px solid rgb(50, 50, 255);
-        border-radius: 10px;
-        background-color: rgb(50, 50, 255);
-        color: white;
-        font-size: 1.2em;
-        padding: 10px;
-    }
-</style>
-
 <body>
     <div class="descProd">
         <h1>Détails du produit - {{ product.getPrLabel() }}</h1>

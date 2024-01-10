@@ -1,56 +1,5 @@
 {% extends 'base.html.twig' %}
 {% block body %}
-
-<style> .containerImg
-{
-  background-color:rgb(240,240,240);
-  border-radius: 7px;
-  width:fit-content;
-  
-  margin:auto;
-  padding: 0px;
-  
-
-  text-align:center;
-
-}
-
-.tableProduit
-{
-  margin:auto;
-}
-
-.imgProd
-{
-  display: block;
-  margin: auto; /* Centre l'image horizontalement et verticalement */
-  max-width: 100%; /* Optionnel : pour s'assurer que l'image reste dans les limites du conteneur */
-  height: auto;
-}
-
-.containerImg
-{
-    padding:20px;
-}
-
-.containerProd{
-    width:fit-content;
-    margin:auto;
-    padding:8px;
-    padding-left: 30px;
-    padding-right: 30px;
-}
-.containerProd:hover
-{
-    background-color:rgb(235,235,235);
-}
-.lienProd
-{
-    text-decoration: none;
-    color:black;
-}
-</style>
-
     <table class="tableProduit">
         {% for product in products %}
             {% if loop.index0 % 5 == 0 %}

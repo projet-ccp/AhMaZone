@@ -31,8 +31,37 @@
             font-size:1.2em;
             padding:10px;
         }
-    </style>
 
+        .imgSuppr
+        {
+            width:50px;      
+            height:50px;
+            background: red;
+        }
+        .btnSuppr{
+            border:1px solid red;
+            border-radius: 10px;
+        }
+    </style>
+    <script>
+        function supprimerProduit(productId) {
+        fetch('/supprimerProduit/' + productId, {
+            method: 'DELETE', // Utilisez la méthode appropriée (POST, DELETE, etc.) pour votre endpoint
+            headers: {
+                'Content-Type': 'application/json'
+                // Ajoutez d'autres en-têtes si nécessaire, par exemple, les en-têtes d'authentification
+            }
+        })
+        .then(response => {
+            // Traitez la réponse de la suppression du produit, par exemple, actualisez la page ou mettez à jour le panier
+            // Vous pouvez mettre à jour visuellement la suppression du produit côté client si nécessaire
+            console.log('Produit supprimé du panier avec succès.');
+            // Exemple : Actualiser la page après la suppression
+            window.location.reload();
+        })
+        .catch(error => console.error('Erreur lors de la suppression du produit :', error));
+    }
+    </script>   
 
 
 <h1>Votre panier</h1>
@@ -46,7 +75,8 @@
                 <th>Produit</th>
                 <th>Quantité</th>
                 <th>Prix unitaire</th>
-                <th>Total</th>
+                <th>Total</th>  
+                <th>Supprimer</th>
             </tr>
         </thead>
         <tbody>
@@ -57,14 +87,22 @@
                     <td>{{ item['quantite'] ?? 'Quantité non définie' }}</td>
                     <td>{{ item['prix_unit'] ?? 'Prix non défini' }}</td>
                     <td>{{ item['quantite'] * item['prix_unit'] }}</td>
+                    <td><button onclick="supprimerProduit({{ productId }})" class="btnSuppr">
+                        <img class="imgSuppr" src="/img/imgSuppr.jpg" style="border: none;">
+                    </button>
+                    </td>
                 </tr>
                 {% set totalPanier = totalPanier + (item['quantite'] * item['prix_unit']) %}
+                
+
             {% endfor %}
         </tbody>
     </table>
     <p>Total du panier : {{ totalPanier }}</p>
 
     <br>
-    <button class="buttonCommander">Commander</button>
+    <button onclick"commander()" class="buttonCommander">Commander</button>
+
+
 {% endif %}
 {% endblock %}
