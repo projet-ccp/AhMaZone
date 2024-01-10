@@ -73,12 +73,12 @@
             if (!response.ok) {
             throw new Error('Erreur lors de la requête : ' + response.status);
             }
+			location.reload();
 
             // Analyse de la réponse JSON renvoyée par votre méthode Symfony
             return response.json();
 
 			
-
             }).then(data => { // Traitez les données renvoyées par votre méthode Symfony
             console.log(data);
 

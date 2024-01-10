@@ -171,6 +171,9 @@ class PanierController extends AbstractController
                 $entityManager->persist($commProd);
                 $entityManager->flush();
             }
+
+
+                
             $session->remove('cart');
             $entityManager->flush();
     
