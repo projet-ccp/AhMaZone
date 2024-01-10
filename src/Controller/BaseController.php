@@ -25,18 +25,6 @@ class BaseController extends AbstractController
         return $this->render('base.html.twig');
     }
 
-    #[Route('/form', name: 'app_form')]
-    public function accueil(): Response
-    {
-        return $this->render('form/form.html.twig');
-    }
-
-    #[Route('/formconnexion', name: 'app_formconnexion')]
-    public function connexion(): Response
-    {
-        return $this->render('formconnexion/formconnexion.html.twig');
-    }
-
     #[Route('/clients', name: 'client_list')]
     public function listClients(): Response
     {
