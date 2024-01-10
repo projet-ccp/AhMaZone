@@ -61,6 +61,9 @@
         }
 
         function commander() {
+
+
+			
             fetch('/AjoutCmd', {
             method: 'GET',
             headers: {
@@ -70,9 +73,12 @@
             if (!response.ok) {
             throw new Error('Erreur lors de la requête : ' + response.status);
             }
+			location.reload();
 
             // Analyse de la réponse JSON renvoyée par votre méthode Symfony
             return response.json();
+
+			
             }).then(data => { // Traitez les données renvoyées par votre méthode Symfony
             console.log(data);
 
@@ -108,6 +114,41 @@
             // Exemple : Actualiser la page après la récupération des données
             }).catch(error => console.error('Erreur lors de la requête :', error));
         }
+
+
+		function changeQte(productId, change, qteActuel)
+		{
+			if(change == -1 && qteActuel == 1)
+			{
+				supprimerProduit(productId);
+			}
+			else
+			{
+				fetch('/modifQte/'+ productId+'/'+change, {
+				method: 'POST',
+				headers: {
+				'Content-Type': 'application/json'
+				}
+				}).then(response => { // Vérifiez si la réponse HTTP indique un succès (code 200)
+				if (!response.ok) {
+				throw new Error('Erreur lors de la requête : ' + response.status);
+				}
+
+				// Analyse de la réponse JSON renvoyée par votre méthode Symfony
+				return response.json();
+
+
+
+				}).then(data => { // Traitez les données renvoyées par votre méthode Symfony
+				const clientData = data.client;
+            // Exemple : Affichage du message ou de l'ID du client
+
+            // Exemple : Actualiser la page après la récupération des données
+            }).catch(error => console.error('Erreur lors de la requête :', error));
+			}
+			location.reload();
+		}
+
 	</script>
 	<h1>Votre panier</h1>
 
@@ -118,10 +159,10 @@
 			<thead>
 				<tr>
 					<th>Produit</th>
-					<th>Quantité</th>
 					<th>Prix unitaire</th>
 					<th>Total</th>
-					<th>Supprimer</th>
+					<th>Quantité</th>
+
 				</tr>
 			</thead>
 			<tbody>
@@ -129,14 +170,20 @@
 				{% for productId, item in cart %}
 					<tr>
 						<td>{{ item['label'] ?? 'Label non défini' }}</td>
-						<td>{{ item['quantite'] ?? 'Quantité non définie' }}</td>
 						<td>{{ item['prix_unit'] ?? 'Prix non défini' }}</td>
 						<td>{{ item['quantite'] * item['prix_unit'] }}</td>
 						<td>
+							<button onclick="changeQte({{ productId }}, -1, {{item['quantite']}})">-</button>
+							{{ item['quantite'] ?? 'Quantité non définie' }}
+							<button onclick="changeQte({{ productId }}, 1, {{item['quantite']}})">+</button>
+						</td>
+
+
+						{# <td>
 							<button onclick="supprimerProduit({{ productId }})" class="btnSuppr">
 								<img class="imgSuppr" src="/img/imgSuppr.jpg" style="border: none;">
 							</button>
-						</td>
+						</td> #}
 					</tr>
 					{% set totalPanier = totalPanier + (item['quantite'] * item['prix_unit']) %}
 
