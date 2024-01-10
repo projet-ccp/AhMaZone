@@ -2,12 +2,17 @@
 
 namespace App\Controller;
 
+use App\Entity\Client;
 use App\Entity\Produit;
+use App\Entity\Commande;
+use App\Entity\CommProd;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\HttpFoundation\JsonResponse;
+use Symfony\Component\Serializer\SerializerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class PanierController extends AbstractController
@@ -40,8 +45,6 @@ class PanierController extends AbstractController
             // Si le produit est déjà dans le panier, augmenter la quantité
             $cart[$productId]['quantite'] += 1;
     
-            // Mettre à jour le prix unitaire en fonction de la nouvelle quantité
-            $cart[$productId]['prix_unit'] = $product->getPrPrixUnit() * $cart[$productId]['quantite'];
         } else {
             // Si le produit n'est pas dans le panier, l'ajouter avec une quantité initiale de 1
             $cart[$productId] = [
@@ -93,28 +96,92 @@ class PanierController extends AbstractController
         throw $this->createNotFoundException('Le produit n\'existe pas dans le panier.');
     }
 
-    public function commander(Request $request, Security $security): Response
+
+    #[Route('/verifUser', name: 'app_verifUser')]
+    public function getClientOrMessage(Security $security): Response
     {
-        // Récupérer le panier depuis la session
-        $cart = $request->getSession()->get('cart', []);
+        // Récupérer l'utilisateur connecté (client dans votre cas)
+        $client = $security->getUser();
 
-        // Récupérer l'utilisateur connecté
-        $user = $security->getUser();
+        // Vérifier si un client est connecté
+        if ($client instanceof Client) {
+            // Si un client est connecté, répondre avec les données du client sérialisées
+            return $this->json([
+                'client' => [
+                    'id' => $client->getId(),
+                    // Ajoutez d'autres informations du client ici selon votre structure d'objet
+                ]
+            ]);
 
-        // Vérifier si l'utilisateur est connecté
-        if (!$user) {
-            // Si l'utilisateur n'est pas connecté, définir un message à afficher
-            $message = 'Vous devez être connecté pour commander';
         } else {
-            // Si l'utilisateur est connecté, ne pas afficher de message spécial
-            $message = null;
-        }
+            return $this->json([
+                'client' => [
+                    'id' => null,
+               'message' => 'Veuillez vous connecter pour commander.',
+                    // Ajoutez d'autres informations du client ici selon votre structure d'objet
+                ]
+            ]);
+            // Si aucun client n'est connecté, renvoyer un message
 
-        // Passer le panier et le message à la vue
-        return $this->render('panier/panier.html.twig', [
-            'cart' => $cart,
-            'message' => $message, // Transmettre le message à la vue
-        ]);
+        }
+    }
+
+    #[Route('/AjoutCmd', name: 'app_ajoutCmd')]
+    public function ajouterCommande(Security $security, Request $request, EntityManagerInterface $entityManager): Response
+    {
+        // Récupérer les informations nécessaires pour créer une commande
+        $session = $request->getSession();
+        $cart = $session->get('cart'); // Supposons que le panier est stocké en session
+
+        // Calculer le prix total en parcourant le panier
+        $prixTotal = 0;
+        foreach ($cart as $item) {
+            $prixTotal += $item['prix_unit'] * $item['quantite']; // Adapter cette ligne selon la structure de votre panier
+        }
+        $client = $security->getUser();
+
+        // Récupérer l'ID du client (vous devez obtenir cela selon votre logique)
+        if ($client instanceof Client) {
+            // Récupérez l'ID du client
+            $clientId = $client->getId();
+
+            $clientEntity = $entityManager->getRepository(Client::class)->find($clientId);
+        
+            $commande = new Commande();
+            $commande->setCoClId($clientEntity);
+            $commande->setCoDate(new \DateTime()); // Date actuelle
+            $commande->setCoPrixTotal($prixTotal);
+
+            // Enregistrer la commande en base de données
+            $entityManager->persist($commande);
+            $entityManager->flush();
+
+            $commandeEntity = $entityManager->getRepository(Commande::class)->find($commande->getId());
+            
+
+
+
+            foreach($cart as $item)
+            {
+                $produitEntity = $entityManager->getRepository(Produit::class)->find($item['id']);
+                $commProd = new CommProd();
+                $commProd->setCpCoId($commandeEntity);
+                $commProd->setCpPrId($produitEntity);
+                $commProd->setCpQuantite($item['quantite']);
+            }
+
+            $entityManager->persist($commProd);
+            $entityManager->flush();
+
+    
+            // Vous pouvez renvoyer une réponse appropriée, par exemple :
+            return $this->json(['message' => 'succès']);
+        } else {
+            // Renvoyer une réponse JSON indiquant l'échec
+            return $this->json(['message' => 'fail']);
+        }
+        // Créer une nouvelle commande
+
     }
 
 }
