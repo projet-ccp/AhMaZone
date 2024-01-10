@@ -72,23 +72,5 @@ class Commande
         return $this;
     }
 
-        /**
-     * @ORM\ManyToOne(targetEntity=Client::class, inversedBy="orders")
-     * @ORM\JoinColumn(nullable=false)
-     */
-    private $client;
-
-    // ...
-
-    public function getClient(): ?Client
-    {
-        return $this->client;
-    }
-
-    public function setClient(?Client $client): self
-    {
-        $this->client = $client;
-
-        return $this;
-    }
+    
 }
