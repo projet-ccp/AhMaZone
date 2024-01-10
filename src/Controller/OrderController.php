@@ -1,16 +1,14 @@
 <?php
 
-// src/Controller/OrderController.php
 namespace App\Controller;
+
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-use App\Entity\Commande;
+use App\Entity\Client;
+use App\Entity\Produit;
 
 class OrderController extends AbstractController
 {
-    /**
-     * @Route("/client/{clientId}/orders", name="client_orders")
-     */
     public function listOrders($clientId)
     {
         $client = $this->getDoctrine()->getRepository(Client::class)->find($clientId);
@@ -27,4 +25,6 @@ class OrderController extends AbstractController
         ]);
     }
 }
+
+
 

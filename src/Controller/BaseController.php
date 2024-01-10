@@ -1,5 +1,7 @@
 <?php
 
+// BaseController.php
+
 namespace App\Controller;
 
 use Doctrine\ORM\EntityManagerInterface;
@@ -44,4 +46,22 @@ class BaseController extends AbstractController
             'clients' => $clients,
         ]);
     }
+
+    #[Route('/client/{clientId}/orders', name: 'client_orders')]
+    public function listClientOrders($clientId)
+    {
+        $client = $this->entityManager->getRepository(Client::class)->find($clientId);
+
+        if (!$client) {
+            throw $this->createNotFoundException('Client non trouvé');
+        }
+
+        $orders = $client->getId();
+
+        return $this->render('order/order.html.twig', [
+            'client' => $client,
+            'orders' => $orders,
+        ]);
+    }
 }
+

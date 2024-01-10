@@ -11,7 +11,7 @@
             <tr>
                 <th>Date</th>
                 <th>Prix total TTC</th>
-                <th>Actions</th>
+                <th>Produits</th>
             </tr>
         </thead>
         <tbody>
@@ -19,8 +19,7 @@
                 <tr>
                     <td>{{ order.date|date('Y-m-d') }}</td>
                     <td>{{ order.prixTotalTTC }}</td>
-                    <td>
-                    </td>
+                    <td>{{ order.produit }} </td>
                 </tr>
             {% endfor %}
         </tbody>

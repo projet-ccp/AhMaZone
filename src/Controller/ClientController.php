@@ -8,7 +8,7 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Client;
 
-#[Route('/clients', name: 'client_list')]
+
 class ClientController extends AbstractController
 {
     public function listClients()
