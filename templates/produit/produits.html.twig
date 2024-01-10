@@ -1,56 +1,67 @@
 {% extends 'base.html.twig' %}
 {% block body %}
 
-    <style>
+<style> .containerImg
+{
+  background-color:rgb(240,240,240);
+  border-radius: 7px;
+  width:fit-content;
+  
+  margin:auto;
+  padding: 0px;
+  
 
-        .image
-        {
-            background-color:rgb(240,240,240);
-            border-radius: 7px;
-            width:fit-content;
-            
-            margin:auto;
-            padding: 0px;
-            
+  text-align:center;
 
-            text-align:center;
+}
 
-        }
-        table{
-            margin:auto;
-        }
-        img
-        {
-            display: block;
-            margin: auto; /* Centre l'image horizontalement et verticalement */
-            max-width: 100%; /* Optionnel : pour s'assurer que l'image reste dans les limites du conteneur */
-            height: auto;
-        }
-        td{
-        }
-        .image
-        {
-            padding:20px;
-        }
-        .text{
-            width:fit-content;
-            margin:auto;
-            padding:8px;
-            padding-left: 30px;
-            padding-right: 30px;
-        }
-    </style>
+.tableProduit
+{
+  margin:auto;
+}
 
-    <table>
+.imgProd
+{
+  display: block;
+  margin: auto; /* Centre l'image horizontalement et verticalement */
+  max-width: 100%; /* Optionnel : pour s'assurer que l'image reste dans les limites du conteneur */
+  height: auto;
+}
+
+.containerImg
+{
+    padding:20px;
+}
+
+.containerProd{
+    width:fit-content;
+    margin:auto;
+    padding:8px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+.containerProd:hover
+{
+    background-color:rgb(235,235,235);
+}
+.lienProd
+{
+    text-decoration: none;
+    color:black;
+}
+</style>
+
+    <table class="tableProduit">
         {% for product in products %}
             {% if loop.index0 % 5 == 0 %}
                 <tr>
             {% endif %}
             
             <td>
-            <div class="text">
-                <div class="image">
-                    <img src={{product.getPrImage()}} />
+            <a class="lienProd" href="{{ path('show_product', {'id': product.id}) }}">
+            <div class="containerProd">
+                <div class="containerImg">
+                    <img class="imgProd" src={{product.getPrImage()}} />
                 </div>
 
                 
@@ -67,6 +78,7 @@
                 <br>
                 
             </div>
+            </a>
             </td>
             
             {% if loop.index % 5 == 0 or loop.last %}

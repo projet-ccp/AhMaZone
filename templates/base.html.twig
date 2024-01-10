@@ -27,23 +27,24 @@
                 <a href="{{ path('app_home') }}">ACCUEIL</a>
                 <a href="{{ path('app_produit') }}">COMMANDE</a>
                 <a href="{{ path('client_list') }}">CLIENT</a>
+                <a href="{{ path('app_panier') }}">PANIER</a>
             </div>
             </nav>
         </div>
     
-    <div class="accueil">
+    {# <div class="accueil"> #}
             {% block body %}
             <h1> Bienvenue sur AhMaZone ! </h1>
             <img src="/img/Ahmazone.png" >
 
             {% endblock %}
-    </div>
+    {# </div> #}
     
 
 
     <div class="footer">
         <div class="copyright">
-            <p> &copy; 2024 DEVELOPPE PAR ROBINSON - LUCAS - HAITAM - THOMAS<p>
+            <p> &copy; 2024 DEVELOPPE PAR THOMAS - ROBINSON - HAITAM - LUCAS<p>
         </div>
     </div>
     </body>

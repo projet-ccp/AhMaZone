@@ -1,0 +1,64 @@
+{% extends 'base.html.twig' %}
+{% block body %}
+
+<style>
+    .descProd {
+        margin: auto;
+        text-align: center;
+        margin-top: 50px;
+    }
+
+    .btnPanier {
+        border: 1px solid rgb(50, 50, 255);
+        border-radius: 10px;
+        background-color: rgb(50, 50, 255);
+        color: white;
+        font-size: 1.2em;
+        padding: 10px;
+    }
+</style>
+
+<body>
+    <div class="descProd">
+        <h1>Détails du produit - {{ product.getPrLabel() }}</h1>
+
+        <h2>{{ product.getPrLabel() }}</h2>
+        <p>Prix : {{ product.getPrPrixUnit() }}</p>
+        <p>Quantité en stock : {{ product.getPrQuantiteStock() }}</p>
+        {% if product.getPrImage() is not empty %}
+            <img src={{ product.getPrImage() }} alt="Image du produit">
+        {% else %}
+            <p>Pas d'image disponible</p>
+        {% endif %}
+        <br>
+        <br>
+        <button class="btnPanier" onclick="addToCart({{ product.id }})">ajouter au panier </button>
+    </div>
+
+    <script>
+        function addToCart(productId) {
+            // Appeler l'URL qui gère l'ajout au panier avec l'ID du produit
+            fetch(`/panier/${productId}`, { method: 'POST' })
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Erreur lors de l\'ajout au panier');
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Gérer la réponse si nécessaire
+                    console.log('Produit ajouté au panier :', data);
+                    // Afficher un message de confirmation
+                    const confirmationMessage = document.createElement('p');
+                    confirmationMessage.textContent = 'Produit ajouté au panier!';
+                    document.querySelector('.descProd').appendChild(confirmationMessage);
+                    // Vous pouvez personnaliser l'affichage du message à votre convenance
+                })
+                .catch(error => {
+                    console.error('Erreur :', error);
+                });
+        }
+    </script>
+</body>
+
+{% endblock %}
