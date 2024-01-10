@@ -36,34 +36,34 @@
     </div>
 
     <script>
-        let confirmationDisplayed = false; // Variable pour suivre si le message a été affiché
+      let confirmationDisplayed = false; // Variable pour suivre si le message a été affiché
 
-        function addToCart(productId) {
-            // Vérifier si le message n'a pas déjà été affiché
-            if (!confirmationDisplayed) {
-                // Appeler l'URL qui gère l'ajout au panier avec l'ID du produit
-                fetch(`/panier/${productId}`, { method: 'POST' })
-                    .then(response => {
-                        if (!response.ok) {
-                            throw new Error('Erreur lors de l\'ajout au panier');
-                        }
-                        return response.json(); 
-                    })
-                    .then(data => {
-                        // Gérer la réponse si nécessaire
-                        console.log('Produit ajouté au panier :', data);
-                        // Afficher un message de confirmation
-                        const confirmationMessage = document.createElement('p');
-                        confirmationMessage.textContent = 'Produit ajouté au panier!';
-                        document.querySelector('.descProd').appendChild(confirmationMessage);
-                        // Vous pouvez personnaliser l'affichage du message à votre convenance
-                        confirmationDisplayed = true; // Mettre la variable à true pour indiquer que le message a été affiché
-                    })
-                    .catch(error => {
-                        console.error('Erreur :', error);
-                    });
-            }
-        }
+      function addToCart(productId) {
+          // Vérifier si le message n'a pas déjà été affiché
+          if (!confirmationDisplayed) {
+              // Appeler l'URL qui gère l'ajout au panier avec l'ID du produit
+              fetch(`/panier/${productId}`, { method: 'POST' })
+                  .then(response => {
+                      if (!response.ok) {
+                          throw new Error('Erreur lors de l\'ajout au panier');
+                      }
+                      return response.json(); 
+                  })
+                  .then(data => {
+                      // Gérer la réponse si nécessaire
+                      console.log('Produit ajouté au panier :', data);
+                      // Afficher un message de confirmation
+                      const confirmationMessage = document.createElement('p');
+                      confirmationMessage.textContent = 'Produit ajouté au panier!';
+                      document.querySelector('.descProd').appendChild(confirmationMessage);
+                      // Vous pouvez personnaliser l'affichage du message à votre convenance
+                      confirmationDisplayed = true; // Mettre la variable à true pour indiquer que le message a été affiché
+                  })
+                  .catch(error => {
+                      console.error('Erreur :', error);
+                  });
+          }
+      }
 
     </script>
 </body>

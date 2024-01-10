@@ -315,13 +315,6 @@
   top: 0;
 }
 
-.button:hover:before,
-.button:hover:after {
-  opacity: 1;
-  visibility: visible;
-}
-
-
 .buttonCommander {
   color: white;
   font-size: 1.2em;
