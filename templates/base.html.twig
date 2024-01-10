@@ -17,7 +17,6 @@
     </head>
         <nav class="connect">
             <a type="button" class="btn btn-dark" href="{{ path('app_login') }}">Connexion</a>
-            <a type="button" class="btn btn-dark" href="{{ path('app_register') }}">Inscription</a>
         </nav>
 
     <body>
@@ -32,13 +31,14 @@
             </nav>
         </div>
     
-    {# <div class="accueil"> #}
+     
             {% block body %}
+            <div class="logoStyle"> 
             <h1> Bienvenue sur AhMaZone ! </h1>
             <img src="/img/Ahmazone.png" >
-
+            </div> 
             {% endblock %}
-    {# </div> #}
+    
     
 
 
