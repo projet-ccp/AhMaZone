@@ -168,11 +168,11 @@ class PanierController extends AbstractController
                 $commProd->setCpCoId($commandeEntity);
                 $commProd->setCpPrId($produitEntity);
                 $commProd->setCpQuantite($item['quantite']);
+                $entityManager->persist($commProd);
+                $entityManager->flush();
             }
-
-            $entityManager->persist($commProd);
+            $session->remove('cart');
             $entityManager->flush();
-
     
             // Vous pouvez renvoyer une réponse appropriée, par exemple :
             return $this->json(['message' => 'succès']);
@@ -183,5 +183,31 @@ class PanierController extends AbstractController
         // Créer une nouvelle commande
 
     }
+
+    #[Route('/modifQte/{productId}/{qteIncrement}', name: 'app_change_qte')]
+    public function changeQte(Request $request, int $productId, int $qteIncrement): Response
+    {
+        // Récupérer le panier depuis la session
+        $cart = $request->getSession()->get('cart', []);
+    
+        // Vérifier si le produit est déjà dans le panier
+        if (array_key_exists($productId, $cart)) {
+            // Mettre à jour la quantité du produit
+            $cart[$productId]['quantite'] += $qteIncrement;
+    
+            // Assurez-vous que la quantité ne devienne pas négative
+            if ($cart[$productId]['quantite'] < 0) {
+                $cart[$productId]['quantite'] = 0;
+            }
+    
+            // Enregistrez le panier mis à jour dans la session
+            $request->getSession()->set('cart', $cart);
+        }
+    
+        // Vous pouvez rediriger vers une autre page ou renvoyer une réponse selon vos besoins
+        // Redirection vers la page du panier par exemple
+        return $this->json(['message' => 'succès']);    
+    }
+    
 
 }
