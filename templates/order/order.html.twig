@@ -5,6 +5,35 @@
 {% block title %}Commandes de {{ client.nom }} {{ client.prenom }}{% endblock %}
 
 {% block body %}
+
+    {# <script>
+        function AfficherProduit(clientId, commId) {
+            fetch('/commandes/' + clientId + '/' + commId, {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            }).then(response => {
+                if (!response.ok) {
+                    throw new Error('Erreur lors de la requête : ' + response.status);
+                }
+                location.reload();
+                var produitsRows = document.querySelectorAll('.produits-row');
+                produitsRows.forEach(function (row) {
+                    row.style.display = 'none';
+                });
+
+    // Afficher la ligne des produits de la commande actuelle
+            var produitsRow = document.getElementById('produits-' + commId);
+            produitsRow.style.display = 'table-row';
+
+                return response.json();
+            }).then(data => {
+                console.log(data);
+            }).catch(error => console.error('Erreur lors de la requête :', error));
+        }
+    </script> #}
+
     <h1>Commandes de {{ client.nom }} {{ client.prenom }}</h1>
     <table class="table">
         <thead>
@@ -15,13 +44,15 @@
             </tr>
         </thead>
         <tbody>
-            {% for order in orders %}
-                <tr>
-                    <td>{{ order.date|date('Y-m-d') }}</td>
-                    <td>{{ order.prixTotalTTC }}</td>
-                    <td>{{ order.produit }} </td>
-                </tr>
-            {% endfor %}
+        {% for commande in commandes %}
+            <tr>
+                <td>{{ commande.getCoDate()|date('Y-m-d') }}</td>
+                <td>{{ commande.getCoPrixTotal() }}</td>
+                <td><a href="{{ path('afficher_commandes_prod', {'clientId': client.id, 'commId':commande.getId()}) }}">produits de la commande</a></td>
+            </tr>
+
+        {% endfor %}
         </tbody>
     </table>
+
 {% endblock %}

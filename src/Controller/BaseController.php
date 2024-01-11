@@ -35,21 +35,21 @@ class BaseController extends AbstractController
         ]);
     }
 
-    #[Route('/client/{clientId}/orders', name: 'client_orders')]
-    public function listClientOrders($clientId)
-    {
-        $client = $this->entityManager->getRepository(Client::class)->find($clientId);
+    // #[Route('/client/{clientId}/orders', name: 'client_orders')]
+    // public function listClientOrders($clientId)
+    // {
+    //     $client = $this->entityManager->getRepository(Client::class)->find($clientId);
 
-        if (!$client) {
-            throw $this->createNotFoundException('Client non trouvé');
-        }
+    //     if (!$client) {
+    //         throw $this->createNotFoundException('Client non trouvé');
+    //     }
 
-        $orders = $client->getId();
+    //     $orders = $client->getId();
 
-        return $this->render('order/order.html.twig', [
-            'client' => $client,
-            'orders' => $orders,
-        ]);
-    }
+    //     return $this->render('order/order.html.twig', [
+    //         'client' => $client,
+    //         'orders' => $orders,
+    //     ]);
+    // }
 }
 

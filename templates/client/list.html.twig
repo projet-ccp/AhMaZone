@@ -22,7 +22,7 @@
                     <td>{{ client.prenom }}</td>
                     <td>{{ client.email }}</td>
                     <td>
-                        <a href="{{ path('client_orders', {'clientId': client.id}) }}">Voir les commandes</a>
+                        <a href="{{ path('afficher_commandes', {'clientId': client.id}) }}">Voir les commandes</a>
                     </td>
                 </tr>
             {% endfor %}

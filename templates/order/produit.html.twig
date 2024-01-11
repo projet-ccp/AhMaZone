@@ -1,0 +1,25 @@
+{# templates/order/list.html.twig #}
+
+{% extends 'base.html.twig' %}
+
+{% block body %}
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>label produit</th> 
+                <th>Quantité</th>
+                
+            </tr>
+        </thead>
+        <tbody>
+            {% for comp in commprod %}
+                <tr>
+                    <td>{{ comp.getCommProd().getPrLabel() }}</td>
+                    <td>{{ comp.getCpQuantite() }}</td>
+                </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+
+{% endblock %}
