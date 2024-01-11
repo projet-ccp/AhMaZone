@@ -9,15 +9,16 @@ use App\Entity\Produit;
 
 class OrderController extends AbstractController
 {
-    public function listOrders($clientId)
+    #[Route('/client/{clientId}/orders', name: 'client_orders')]
+    public function listClientOrders($clientId,int $productId): Response
     {
-        $client = $this->getDoctrine()->getRepository(Client::class)->find($clientId);
+        $client = $this->entityManager->getRepository(Client::class)->find($clientId);
 
         if (!$client) {
             throw $this->createNotFoundException('Client non trouvé');
         }
 
-        $orders = $client->getOrders();
+        $orders = $this->entityManager->getRepository(Produit::class)->find($productId);
 
         return $this->render('order/list.html.twig', [
             'client' => $client,
